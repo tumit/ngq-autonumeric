@@ -62,7 +62,6 @@ export class NgqAutonumericComponent
   @HostListener('blur') onTouched = () => { };
 
   writeValue(obj: any): void {
-    console.log('obj', obj);
     this._value = obj;
   }
 

@@ -28,7 +28,7 @@
         <div class="col-sm-4">
           <ngq-autonumeric formControlName="age" [autonumericOptions]="intOpts"></ngq-autonumeric>
           <ngq-autonumeric formControlName="percent" [autonumericOptions]="floatOpts"></ngq-autonumeric>
-          <ngq-autonumeric id="amount-id" class="text-align-right" formControlName="amount"></ngq-autonumeric>
+          <ngq-autonumeric [id]="'amount-id'" [class]="'text-align-right'" formControlName="amount"></ngq-autonumeric>
         </div>
       </div>
     </form>
