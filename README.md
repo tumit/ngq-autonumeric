@@ -4,7 +4,7 @@ A number input as a Angular component based on AutoNumeric jQuery Plugin http://
 # Usage
 * `npm install ngq-autonumeric --save`
 * add JQuery and AutoNumeric scripts to `.angular-cli.json`
-```
+```json
   ...
   "scripts": [
     "../node_modules/jquery/dist/jquery.min.js",
@@ -13,7 +13,7 @@ A number input as a Angular component based on AutoNumeric jQuery Plugin http://
   ...
 ```
 * Add NgqAutonumericModule to your app module's
-```
+```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
