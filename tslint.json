@@ -118,15 +118,15 @@
       "check-type"
     ],
     "directive-selector": [
-      true,
+      false,
       "attribute",
-      "app",
+      "ngq",
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
-      "app",
+      "ngq",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
