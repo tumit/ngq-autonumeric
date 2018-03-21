@@ -5,8 +5,7 @@ import {
   forwardRef,
   AfterViewInit,
   HostListener,
-  Input,
-  ElementRef
+  Input
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import 'jquery';
@@ -37,11 +36,7 @@ export class NgqAutonumericComponent
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor(
-    private el: ElementRef
-  ) {
-    el.nativeElement.style.textAlign = 'right';
-  }
+  constructor() { }
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
