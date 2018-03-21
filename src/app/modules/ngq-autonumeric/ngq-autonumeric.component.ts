@@ -26,6 +26,9 @@ const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
 export class NgqAutonumericComponent
   implements ControlValueAccessor, AfterViewInit {
 
+  @Input() id: string;
+  @Input() class: string;
+  @Input() placeholder: string;
   @ViewChild('input') input;
 
   _jQueryElement: JQuery;
@@ -33,7 +36,7 @@ export class NgqAutonumericComponent
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor() {}
+  constructor() { }
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
@@ -54,12 +57,11 @@ export class NgqAutonumericComponent
     });
   }
 
-  propagateChange = _ => {};
+  propagateChange = _ => { };
 
-  @HostListener('blur') onTouched = () => {};
+  @HostListener('blur') onTouched = () => { };
 
   writeValue(obj: any): void {
-    console.log('obj', obj);
     this._value = obj;
   }
 
@@ -67,7 +69,7 @@ export class NgqAutonumericComponent
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void { }
 
   setDisabledState?(isDisabled: boolean): void {
     this._isDisabled = isDisabled;
