@@ -39,7 +39,7 @@ export class AppModule { }
 ## Reactive Form Example
 
 * `app.component.ts`: create FormGroup
-```
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
 ```
 
 * `app.component.html`: add `<ngq-autonumeric>` to template
-```
+```html
 <div class="panel panel-default">
   <div class="panel-heading">Input form</div>
   <div class="panel-body">
