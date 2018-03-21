@@ -63,6 +63,9 @@ export class NgqAutonumericComponent
 
   writeValue(obj: any): void {
     this._value = obj;
+    if (this._jQueryElement) {
+      this._jQueryElement.val(this._value);
+    }
   }
 
   registerOnChange(fn: any): void {

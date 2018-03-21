@@ -22,4 +22,9 @@ export class AppComponent implements OnInit {
       amount: new FormControl()
     });
   }
+
+  onClear() {
+    this.fg.reset();
+  }
+
 }
