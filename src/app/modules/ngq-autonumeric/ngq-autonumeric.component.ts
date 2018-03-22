@@ -31,7 +31,7 @@ export class NgqAutonumericComponent
   @Input() id: string;
   @Input() class: string;
   @Input() placeholder: string;
-  @Input() isReturnTypeNumber = true;
+  @Input() isNumber = true;
   @ViewChild('input') input: ElementRef;
 
   _jQueryElement: JQuery;
@@ -39,15 +39,12 @@ export class NgqAutonumericComponent
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor(
-    private renderer: Renderer2,
-  ) { }
+  constructor() { }
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
     this._opts = opts;
   }
-
 
   ngOnInit(): void {
     this._opts = (this._opts) ? this._opts : { mDec: 2 };
@@ -59,7 +56,7 @@ export class NgqAutonumericComponent
     this._jQueryElement.autoNumeric('set', String(value));
     this._jQueryElement.change(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
-      this.propagateChange(getValue ? this.isReturnTypeNumber ? Number(getValue) : getValue : null);
+      this.propagateChange(getValue ? this.isNumber ? Number(getValue) : getValue : null);
     });
   }
 
@@ -81,7 +78,4 @@ export class NgqAutonumericComponent
     this._jQueryElement.prop('disabled', isDisabled);
   }
 
-  onChanges(): void {
-
-  }
 }
