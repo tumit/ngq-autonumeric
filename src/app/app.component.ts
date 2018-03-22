@@ -16,10 +16,19 @@ export class AppComponent implements OnInit {
     this.floatOpts = { vMax: 100, vMin: 0, mDec: 2 };
     this.intOpts = { vMax: 100, vMin: 0 };
 
+    this.initForm();
+
+  }
+
+  initForm() {
     this.fg = new FormGroup({
-      age: new FormControl(),
+      age: new FormControl({ value: null, disabled: true }),
       percent: new FormControl(),
-      amount: new FormControl()
+      amount: new FormControl('10000')
     });
+  }
+
+  reset() {
+    this.fg.reset();
   }
 }

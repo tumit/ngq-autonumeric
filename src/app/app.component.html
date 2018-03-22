@@ -28,12 +28,13 @@
         <div class="col-sm-4">
           <ngq-autonumeric formControlName="age" [autonumericOptions]="intOpts"></ngq-autonumeric>
           <ngq-autonumeric formControlName="percent" [autonumericOptions]="floatOpts"></ngq-autonumeric>
-          <ngq-autonumeric [id]="'amount-id'" [class]="'text-align-right'" formControlName="amount"></ngq-autonumeric>
+          <ngq-autonumeric [id]="'amount-id'" [class]="'text-align-right'" formControlName="amount" [isNumber]="false"></ngq-autonumeric>
         </div>
       </div>
+      <button (click)="reset()"></button>
     </form>
 
   </div>
 </div>
 <br> FormGroup: {{ fg.value | json }}
-<br> Percent in '3.5-5' format: {{ fg.get('percent').value | number:'3.5-5'}}
+<!-- <br> Percent in '3.5-5' format: {{ fg.get('percent').value | number:'3.5-5'}} -->
