@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,10 @@ export class AppComponent implements OnInit {
   intOpts: AutoNumericOptions;
 
   ngOnInit() {
-
     this.floatOpts = { vMax: 100, vMin: 0, mDec: 2 };
     this.intOpts = { vMax: 100, vMin: 0 };
 
     this.initForm();
-
   }
 
   initForm() {

@@ -1,17 +1,17 @@
+import 'autonumeric';
+import 'jquery';
+
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  forwardRef,
   AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
   HostListener,
   Input,
-  Renderer2,
-  ElementRef
+  OnInit,
+  ViewChild
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import 'jquery';
-import 'autonumeric';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -27,7 +27,6 @@ const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
 })
 export class NgqAutonumericComponent
   implements ControlValueAccessor, AfterViewInit, OnInit {
-
   @Input() id: string;
   @Input() class: string;
   @Input() placeholder: string;
@@ -39,7 +38,7 @@ export class NgqAutonumericComponent
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor() { }
+  constructor() {}
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
@@ -47,7 +46,7 @@ export class NgqAutonumericComponent
   }
 
   ngOnInit(): void {
-    this._opts = (this._opts) ? this._opts : { mDec: 2 };
+    this._opts = this._opts ? this._opts : { mDec: 2 };
     this._jQueryElement = jQuery(this.input.nativeElement);
     this._jQueryElement.autoNumeric('init', this._opts);
   }
@@ -56,13 +55,15 @@ export class NgqAutonumericComponent
     this._jQueryElement.autoNumeric('set', String(value));
     this._jQueryElement.change(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
-      this.propagateChange(getValue ? this.isNumber ? Number(getValue) : getValue : null);
+      this.propagateChange(
+        getValue ? (this.isNumber ? Number(getValue) : getValue) : null
+      );
     });
   }
 
-  propagateChange = _ => { };
+  propagateChange = _ => {};
 
-  @HostListener('blur') onTouched = () => { };
+  @HostListener('blur') onTouched = () => {};
 
   writeValue(obj: any): void {
     this._jQueryElement.val(obj);
@@ -72,10 +73,9 @@ export class NgqAutonumericComponent
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void { }
+  registerOnTouched(fn: any): void {}
 
   setDisabledState?(isDisabled: boolean): void {
     this._jQueryElement.prop('disabled', isDisabled);
   }
-
 }
