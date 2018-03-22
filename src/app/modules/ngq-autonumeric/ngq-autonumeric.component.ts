@@ -5,7 +5,9 @@ import {
   forwardRef,
   AfterViewInit,
   HostListener,
-  Input
+  Input,
+  Renderer2,
+  ElementRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import 'jquery';
@@ -24,36 +26,40 @@ const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
   providers: [NGQ_AUTONUMERIC_VALUE_ACCESSOR]
 })
 export class NgqAutonumericComponent
-  implements ControlValueAccessor, AfterViewInit {
+  implements ControlValueAccessor, AfterViewInit, OnInit {
 
   @Input() id: string;
   @Input() class: string;
   @Input() placeholder: string;
-  @ViewChild('input') input;
+  @Input() isReturnTypeNumber = true;
+  @ViewChild('input') input: ElementRef;
 
   _jQueryElement: JQuery;
   _value: number;
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor() { }
+  constructor(
+    private renderer: Renderer2,
+  ) { }
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
     this._opts = opts;
   }
 
-  ngAfterViewInit() {
 
+  ngOnInit(): void {
     this._opts = (this._opts) ? this._opts : { mDec: 2 };
-
     this._jQueryElement = jQuery(this.input.nativeElement);
     this._jQueryElement.autoNumeric('init', this._opts);
-    this._jQueryElement.autoNumeric('set', String(this._value));
+  }
+  ngAfterViewInit() {
+    const value = this._jQueryElement.autoNumeric('get');
+    this._jQueryElement.autoNumeric('set', String(value));
     this._jQueryElement.change(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
-      this._value = getValue ? Number(getValue) : null;
-      this.propagateChange(this._value);
+      this.propagateChange(getValue ? this.isReturnTypeNumber ? Number(getValue) : getValue : null);
     });
   }
 
@@ -62,7 +68,7 @@ export class NgqAutonumericComponent
   @HostListener('blur') onTouched = () => { };
 
   writeValue(obj: any): void {
-    this._value = obj;
+    this._jQueryElement.val(obj);
   }
 
   registerOnChange(fn: any): void {
@@ -72,6 +78,10 @@ export class NgqAutonumericComponent
   registerOnTouched(fn: any): void { }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._isDisabled = isDisabled;
+    this._jQueryElement.prop('disabled', isDisabled);
+  }
+
+  onChanges(): void {
+
   }
 }
