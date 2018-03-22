@@ -1,15 +1,17 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  forwardRef,
-  AfterViewInit,
-  HostListener,
-  Input
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import 'jquery';
 import 'autonumeric';
+import 'jquery';
+
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -24,57 +26,56 @@ const NGQ_AUTONUMERIC_VALUE_ACCESSOR: any = {
   providers: [NGQ_AUTONUMERIC_VALUE_ACCESSOR]
 })
 export class NgqAutonumericComponent
-  implements ControlValueAccessor, AfterViewInit {
-
+  implements ControlValueAccessor, AfterViewInit, OnInit {
   @Input() id: string;
   @Input() class: string;
   @Input() placeholder: string;
-  @ViewChild('input') input;
+  @Input() isNumber = true;
+  @ViewChild('input') input: ElementRef;
 
   _jQueryElement: JQuery;
   _value: number;
   _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
-  constructor() { }
+  constructor() {}
 
   @Input('autonumericOptions')
   set autonumericOptions(opts: AutoNumericOptions) {
     this._opts = opts;
   }
 
-  ngAfterViewInit() {
-
-    this._opts = (this._opts) ? this._opts : { mDec: 2 };
-
+  ngOnInit(): void {
+    this._opts = this._opts ? this._opts : { mDec: 2 };
     this._jQueryElement = jQuery(this.input.nativeElement);
     this._jQueryElement.autoNumeric('init', this._opts);
-    this._jQueryElement.autoNumeric('set', String(this._value));
+  }
+  ngAfterViewInit() {
+    const value = this._jQueryElement.autoNumeric('get');
+    this._jQueryElement.autoNumeric('set', String(value));
     this._jQueryElement.change(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
-      this._value = getValue ? Number(getValue) : null;
-      this.propagateChange(this._value);
+      this.propagateChange(
+        getValue ? (this.isNumber ? Number(getValue) : getValue) : null
+      );
     });
   }
 
-  propagateChange = _ => { };
+  propagateChange = _ => {};
 
-  @HostListener('blur') onTouched = () => { };
+  @HostListener('blur') onTouched = () => {};
 
   writeValue(obj: any): void {
-    this._value = obj;
-    if (this._jQueryElement) {
-      this._jQueryElement.val(this._value);
-    }
+    this._jQueryElement.val(obj);
   }
 
   registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void { }
+  registerOnTouched(fn: any): void {}
 
   setDisabledState?(isDisabled: boolean): void {
-    this._isDisabled = isDisabled;
+    this._jQueryElement.prop('disabled', isDisabled);
   }
 }

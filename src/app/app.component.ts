@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,19 +12,21 @@ export class AppComponent implements OnInit {
   intOpts: AutoNumericOptions;
 
   ngOnInit() {
-
     this.floatOpts = { vMax: 100, vMin: 0, mDec: 2 };
     this.intOpts = { vMax: 100, vMin: 0 };
 
+    this.initForm();
+  }
+
+  initForm() {
     this.fg = new FormGroup({
-      age: new FormControl(),
+      age: new FormControl({ value: null, disabled: true }),
       percent: new FormControl(),
-      amount: new FormControl()
+      amount: new FormControl('10000')
     });
   }
 
-  onClear() {
+  reset() {
     this.fg.reset();
   }
-
 }
