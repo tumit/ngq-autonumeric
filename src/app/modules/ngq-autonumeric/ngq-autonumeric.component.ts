@@ -51,9 +51,7 @@ export class NgqAutonumericComponent
     this._jQueryElement.autoNumeric('init', this._opts);
   }
   ngAfterViewInit() {
-    const value = this._jQueryElement.autoNumeric('get');
-    this._jQueryElement.autoNumeric('set', String(value));
-    this._jQueryElement.change(() => {
+    this._jQueryElement.keyup(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
       this.propagateChange(
         getValue ? (this.isNumber ? Number(getValue) : getValue) : null
@@ -63,10 +61,10 @@ export class NgqAutonumericComponent
 
   propagateChange = _ => {};
 
-  @HostListener('blur') onTouched = () => {};
+  // @HostListener('blur') onTouched = () => {};
 
   writeValue(obj: any): void {
-    this._jQueryElement.val(obj);
+    this._jQueryElement.autoNumeric('set', String(obj));
   }
 
   registerOnChange(fn: any): void {
