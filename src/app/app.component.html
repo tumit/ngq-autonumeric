@@ -27,9 +27,9 @@
         <label for="birthDate" class="col-sm-2 control-label">Birth Date</label>
         <div class="col-sm-4">
           <ngq-autonumeric formControlName="age" [autonumericOptions]="intOpts"></ngq-autonumeric>
-          <ngq-autonumeric [id]="'percent-id'" [class]="'text-align-right'" formControlName="percent" [isNumber]="false"></ngq-autonumeric>
-          <ngq-autonumeric [id]="'amount-id'" [class]="'text-align-right'" formControlName="amount" [isNumber]="false"></ngq-autonumeric>
-          <ngq-autonumeric [id]="'total-id'" [class]="'text-align-right'" formControlName="total" [isNumber]="false"></ngq-autonumeric>
+          <ngq-autonumeric formControlName="percent" [autonumericOptions]="intOpts" [isNumber]="false"></ngq-autonumeric>
+          <ngq-autonumeric formControlName="amount" [isNumber]="false"></ngq-autonumeric>
+          <ngq-autonumeric [id]="'total-id'" [class]="'text-align-right'" formControlName="total"></ngq-autonumeric>
         </div>
       </div>
       <button (click)="reset()"></button>

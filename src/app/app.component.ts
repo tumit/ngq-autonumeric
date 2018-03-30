@@ -21,19 +21,10 @@ export class AppComponent implements OnInit {
 
   initForm() {
     this.fg = new FormGroup({
-      age: new FormControl({ value: null, disabled: true }),
+      age: new FormControl(),
       percent: new FormControl(),
       amount: new FormControl(),
       total: new FormControl()
-    });
-
-    this.fg.get('total').setValue(100000);
-
-    this.fg.valueChanges.pipe(
-      debounceTime(1)
-    ).subscribe(res => {
-      const total = Number(res.percent || 0) + Number(res.amount || 0);
-      this.fg.get('total').setValue(total);
     });
   }
 

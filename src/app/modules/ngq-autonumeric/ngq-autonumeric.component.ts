@@ -46,10 +46,11 @@ export class NgqAutonumericComponent
   }
 
   ngOnInit(): void {
-    this._opts = this._opts ? this._opts : { mDec: 2 };
+    this._opts = this.isNumber ? this._opts : { ...this._opts, vMax: Number.POSITIVE_INFINITY  };
     this._jQueryElement = jQuery(this.input.nativeElement);
     this._jQueryElement.autoNumeric('init', this._opts);
   }
+
   ngAfterViewInit() {
     this._jQueryElement.keyup(() => {
       const getValue = this._jQueryElement.autoNumeric('get');
@@ -60,8 +61,6 @@ export class NgqAutonumericComponent
   }
 
   propagateChange = _ => {};
-
-  // @HostListener('blur') onTouched = () => {};
 
   writeValue(obj: any): void {
     this._jQueryElement.autoNumeric('set', String(obj));
