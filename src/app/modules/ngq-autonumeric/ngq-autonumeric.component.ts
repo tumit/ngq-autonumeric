@@ -63,7 +63,8 @@ export class NgqAutonumericComponent
   propagateChange = _ => {};
 
   writeValue(obj: any): void {
-    this._jQueryElement.autoNumeric('set', String(obj));
+    this._jQueryElement.val(obj);
+    this._jQueryElement.autoNumeric('set', String(obj)); // set Format
   }
 
   registerOnChange(fn: any): void {

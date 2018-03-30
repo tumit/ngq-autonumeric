@@ -29,6 +29,6 @@ export class AppComponent implements OnInit {
   }
 
   reset() {
-    this.fg.reset();
+    this.fg.reset({age: '55555'});
   }
 }
