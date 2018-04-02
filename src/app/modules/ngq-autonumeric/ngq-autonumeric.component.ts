@@ -34,8 +34,6 @@ export class NgqAutonumericComponent
   @ViewChild('input') input: ElementRef;
 
   _jQueryElement: JQuery;
-  _value: number;
-  _isDisabled: boolean;
   _opts: AutoNumericOptions;
 
   constructor() {}
